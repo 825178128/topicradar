@@ -5,8 +5,8 @@
 ## 当前阶段
 
 - **W00 准备期**（2026-11-12 → 11-15）：环境 + 三条通路
-- 已搭好：`w0/hello_llm.py`、`w1/llm_ping.py`、`w1/mock_server.py`、`w1/selftest.py`
-- 待你补：`.env` 里的 API key（真实调用需要）
+- 已打通：真实调用（DeepSeek，流式 + 非流式）、重试、token 统计
+- 已就绪：`w1/llm_ping.py`、`w1/mock_server.py`、`w1/selftest.py`（4/4）
 
 ## 快速开始
 

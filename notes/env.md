@@ -53,6 +53,22 @@ C:\Users\lee\miniconda3\python.exe -m pip --python .venv\Scripts\python.exe inst
 
 ## 待办（需要你）
 
-1. 把 `.env.example` 复制为 `.env`，填 `API_KEY`（DeepSeek 控制台申请）→ 我跑一次真实调用验证。
-2. 配 Git 身份：`git config --global user.name "..."` / `user.email "..."` → 然后首次提交。
-3. GitHub 建仓库 `topicradar`（网页即可），再 `git remote add origin ...`。
+1. ✅ 已填 `API_KEY`；真实调用通过：非流式 30 token / 1.07s，流式 90 token / 1.67s。
+2. 首次提交已完成（`user.name=bruceLee`，1 个 commit，分支 main）。
+3. GitHub 仓库已存在：`https://github.com/825178128/topicradar`；remote 已改为该地址（之前误把邮箱当用户名）。
+4. `git push -u origin main` 待认证（见下）。
+
+## GitHub / Git 网络补充（2026-11-12 实测）
+
+| 项 | 结果 |
+|---|---|
+| GitHub 用户名 | `825178128`（API 确认，仓库 `825178128/topicradar` 存在，public，默认分支 main） |
+| git 直连 github.com | 失败：`Connection was reset`（git over HTTPS 被阻断） |
+| git + 代理 7897 | 成功（`ls-remote` exit 0） |
+| schannel 后端 | 本机报 `SEC_E_NO_CREDENTIALS`，改用 `openssl` 后端正常 |
+| 已写入仓库级配置 | `http.sslBackend=openssl`、`http.proxy=http://127.0.0.1:7897` |
+| 凭据助手 | `manager`（Git Credential Manager 2.7.3，`D:\software\Git\mingw64\bin\git-credential-manager.exe`） |
+
+**结论**：push 时 GCM 会走浏览器登录，先设 `$env:HTTPS_PROXY='http://127.0.0.1:7897'`，再 `git push -u origin main`。
+`gh` 已安装但不在 PATH：`C:\Program Files\GitHub CLI\gh.exe`（2.103.3）。
+
